@@ -1,7 +1,8 @@
 .main {
   color: white;
   display: flex;
-  border: 2px solid red;
-  width: 95%;
+  border: 2px solid blue;
+  width: 98%;
   margin: 70px auto 0 auto;
+  height: 500px;
 }
