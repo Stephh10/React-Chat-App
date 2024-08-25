@@ -1,0 +1,7 @@
+.main {
+  color: white;
+  display: flex;
+  border: 2px solid red;
+  width: 95%;
+  margin: 70px auto 0 auto;
+}
