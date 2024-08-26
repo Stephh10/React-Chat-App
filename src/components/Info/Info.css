@@ -2,4 +2,50 @@
   flex: 1;
   background-color: #ece9e9;
   border-left: 1px solid grey;
+  padding: 10px 5px;
+  color: black;
+  position: relative;
+}
+
+.infoClose {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.navInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.navInfo img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.userInfoCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #808080;
+  height: 50px;
+}
+
+.infoCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.infoCardContent p {
+  color: #808080;
 }

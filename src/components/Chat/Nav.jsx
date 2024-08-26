@@ -1,7 +1,7 @@
 import React from "react";
 import "./Chat.css";
 import navImg from "../../assets/profileImg.jpg";
-import { UserCirclePlus, Phone, VideoCamera } from "phosphor-react";
+import { Phone, VideoCamera, DotsThree } from "phosphor-react";
 
 export default function Nav() {
   return (
@@ -15,9 +15,15 @@ export default function Nav() {
         </div>
       </div>
       <div className="navActions">
-        <UserCirclePlus size={25} />
-        <Phone size={25} />
-        <VideoCamera size={25} />
+        <button>
+          <Phone size={25} />
+        </button>
+        <button>
+          <VideoCamera size={25} />
+        </button>
+        <button>
+          <DotsThree size={28} weight="bold" />
+        </button>
       </div>
     </div>
   );

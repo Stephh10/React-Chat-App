@@ -25,6 +25,13 @@
   gap: 0.4rem;
 }
 
+.navActions button {
+  border: none;
+  background: inherit;
+  border: none;
+  cursor: pointer;
+}
+
 .navImg {
   display: flex;
   align-items: center;
