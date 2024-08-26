@@ -1,0 +1,60 @@
+.authContainer {
+  width: 450px;
+  min-height: 200px;
+  margin: 80px auto 0px auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 60px;
+}
+
+.authInputArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 3px auto;
+}
+
+.control input {
+  height: 30px;
+  border: 2px solid #433259;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 5px;
+}
+
+.control label {
+  margin: 5px 0;
+}
+
+.inputAreaAuth {
+  padding-bottom: 15px;
+}
+
+.inputAreaAuth button {
+  padding: 8px 10px;
+  width: 200px;
+  border: none;
+  margin: 10px 0;
+  background-color: #433259;
+  color: white;
+  cursor: pointer;
+}
+
+.authContainer h2 {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.fileControl {
+  margin-top: 15px;
+}
+
+.authActions {
+  margin: 5px 0;
+  text-align: center;
+}

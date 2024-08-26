@@ -1,5 +1,7 @@
 .sidebar {
+  position: relative;
   flex: 1;
+  height: 500px;
   background-color: #433259;
   padding: 5px;
 }
@@ -68,4 +70,16 @@
 
 .sidebarUser p {
   font-size: 14px;
+}
+
+.logoutBtn {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  background-color: #ece9e9;
+  color: #433259;
+  font-weight: bold;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
 }

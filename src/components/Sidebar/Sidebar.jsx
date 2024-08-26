@@ -9,8 +9,11 @@ export default function Sidebar() {
     <div className="sidebar">
       <SidebarNav />
       <Search />
-      <SidebarUser />
-      <SidebarUser />
+      <div className="sidebarActions">
+        <SidebarUser />
+        <SidebarUser />
+      </div>
+      <button className="logoutBtn">Logout</button>
     </div>
   );
 }
