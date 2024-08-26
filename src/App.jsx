@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Protect from "./helpers/Protect";
 import { useContext } from "react";
 import { UserContext } from "./store/UserContext";
+import Notification from "./Notification/Notification";
 
 function App() {
   const { isLoading } = useContext(UserContext);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Notification />
     </>
   );
 }

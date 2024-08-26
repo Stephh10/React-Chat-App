@@ -7,13 +7,13 @@ import { getDoc, doc } from "firebase/firestore";
 export const UserContext = createContext({
   currentUser: null,
   isLoading: true,
+  addUser: () => {},
 });
 
 export default function UserContextProvider({ children }) {
   const [state, setState] = useState({ currentUser: null, isLoading: true });
 
   useEffect(() => {
-    console.log("all good");
     onAuthStateChanged(auth, (user) => {
       if (user) {
         addUser(user.uid);

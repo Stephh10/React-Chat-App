@@ -6,18 +6,20 @@ import SidebarUser from "./SidebarUser";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Sidebar() {
   const navigate = useNavigate();
   function handleLogout() {
-    console.log("clicked");
     auth
       .signOut()
       .then(() => {
-        console.log("all good");
         navigate("/login");
+        toast.success("Successfully logged out");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err);
+      });
   }
   return (
     <div className="sidebar">

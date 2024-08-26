@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./Auth.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 createUserWithEmailAndPassword;
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { UserContext } from "../../store/UserContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Register() {
+  const { addUser, currentUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+
   async function handleUserRegister(e) {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target);
     const { username, email, password } = Object.fromEntries(formData);
 
@@ -26,7 +33,15 @@ export default function Register() {
     });
 
     await setDoc(doc(db, "userschat", createUser.user.uid), {});
+    addUser(createUser.user.uid);
+    setLoading(false);
   }
+
+  if (!loading && currentUser) {
+    toast.success("Account created welcome to chatApp");
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div className="authContainer">
       <h2>Register</h2>
@@ -48,7 +63,7 @@ export default function Register() {
           <input type="file" name="image" />
         </div>
         <div className="authActions">
-          <button>Continue</button>
+          <button>{loading ? "Loading" : "Continue"}</button>
           <p>
             Have an account? <Link to={"/login"}>Log in here</Link>
           </p>

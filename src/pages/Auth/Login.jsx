@@ -1,31 +1,34 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Auth.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { UserContext } from "../../store/UserContext";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const { currentUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   async function handleUserLogin(e) {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target);
     const { email, password } = Object.fromEntries(formData);
 
     await signInWithEmailAndPassword(auth, email, password)
       .then((userDetails) => {
-        console.log(userDetails.user);
+        setLoading(false);
+        toast.success("Successfuly logged in");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
-  useEffect(() => {
-    if (currentUser) {
-      navigate("/");
-    }
-  }, [currentUser]);
+  if (!loading && currentUser) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="authContainer">
@@ -40,7 +43,7 @@ export default function Login() {
           <input type="password" name="password" id="password" />
         </div>
         <div className="authActions">
-          <button>Continue</button>
+          <button>{loading ? "Loading" : "Continue"}</button>
           <p>
             Don't have account?<Link to={"/register"}>Register here</Link>
           </p>
