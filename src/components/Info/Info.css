@@ -1,4 +1,5 @@
 .info {
-  border: 1px solid white;
   flex: 1;
+  background-color: #ece9e9;
+  border-left: 1px solid grey;
 }
