@@ -22,7 +22,7 @@ export default function Login() {
         toast.success("Successfuly logged in");
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error(err.code);
       });
   }
 

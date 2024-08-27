@@ -33,6 +33,7 @@ export default function UserContextProvider({ children }) {
   const userContext = {
     currentUser: state.currentUser,
     isLoading: state.isLoading,
+    addUser,
   };
 
   return (

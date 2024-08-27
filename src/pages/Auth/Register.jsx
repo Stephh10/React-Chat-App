@@ -30,17 +30,21 @@ export default function Register() {
       username,
       email,
       password,
+      id: createUser.user.uid,
     });
 
     await setDoc(doc(db, "userschat", createUser.user.uid), {});
+
     addUser(createUser.user.uid);
     setLoading(false);
+    toast.success("Account created welcome to chatApp");
   }
 
   if (!loading && currentUser) {
-    toast.success("Account created welcome to chatApp");
     return <Navigate to={"/"} />;
   }
+
+  console.log(currentUser);
 
   return (
     <div className="authContainer">

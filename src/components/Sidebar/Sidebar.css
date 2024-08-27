@@ -55,6 +55,15 @@
   padding: 0 5px;
 }
 
+.sidebarUser.foundUser {
+  background-color: #ece9e9;
+  color: black;
+}
+
+.sidebarUser.foundUser:hover {
+  color: white;
+}
+
 .sidebarUser:hover {
   background-color: #302441;
   cursor: pointer;

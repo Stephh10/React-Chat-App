@@ -2,13 +2,23 @@ import React from "react";
 import img1 from "../../assets/profileImg.jpg";
 import "./Sidebar.css";
 
-export default function SidebarUser() {
+export default function SidebarUser({ foundUser, user, handleAddUser }) {
+  const handleClick = () => {
+    if (foundUser) {
+      console.log(user);
+      //   handleAddUser(user.id);
+    }
+  };
+
   return (
-    <div className="sidebarUser">
+    <div
+      onClick={handleClick}
+      className={foundUser ? "sidebarUser foundUser" : "sidebarUser"}
+    >
       <img src={img1} alt="sdd" />
       <div className="sidebarUserInfo">
-        <h4>Kevin Punter</h4>
-        <p>Message here</p>
+        <h4>{user.username}</h4>
+        {!foundUser && <p>Message here</p>}
       </div>
     </div>
   );
