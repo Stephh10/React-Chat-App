@@ -28,8 +28,6 @@ export default function UserContextProvider({ children }) {
     setState({ currentUser: user.data(), isLoading: false });
   }
 
-  console.log(state);
-
   const userContext = {
     currentUser: state.currentUser,
     isLoading: state.isLoading,

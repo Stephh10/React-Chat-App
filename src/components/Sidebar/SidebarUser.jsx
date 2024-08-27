@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import img1 from "../../assets/profileImg.jpg";
 import "./Sidebar.css";
+import { ChatContext } from "../../store/ChatContext";
+import { UserContext } from "../../store/UserContext";
 
 export default function SidebarUser({ foundUser, user, handleAddUser }) {
+  const { selectChat } = useContext(ChatContext);
+  const { currentUser } = useContext(UserContext);
   const handleClick = () => {
     if (foundUser) {
-      console.log(user);
-      //   handleAddUser(user.id);
+      handleAddUser(user);
     }
+
+    selectChat(currentUser, user);
   };
 
   return (

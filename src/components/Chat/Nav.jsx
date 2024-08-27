@@ -3,9 +3,13 @@ import "./Chat.css";
 import navImg from "../../assets/profileImg.jpg";
 import { Phone, VideoCamera, DotsThree } from "phosphor-react";
 import { UserContext } from "../../store/UserContext";
+import { ChatContext } from "../../store/ChatContext";
 
 export default function Nav() {
   const { currentUser } = useContext(UserContext);
+  const { chatDetails } = useContext(ChatContext);
+
+  console.log(chatDetails.user);
 
   return (
     <div className="nav">
@@ -13,8 +17,8 @@ export default function Nav() {
         <img src={navImg} alt="userImg" />
 
         <div className="userDetailsNav">
-          <h3>{currentUser.username}</h3>
-          <p>Active</p>
+          <h3>{chatDetails?.user?.username || "Select user"}</h3>
+          {chatDetails.user !== null ? <p>Active</p> : null}
         </div>
       </div>
       <div className="navActions">
