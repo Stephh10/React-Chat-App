@@ -7,25 +7,39 @@ import { ChatContext } from "../../store/ChatContext";
 
 export default function Nav() {
   const { chatDetails } = useContext(ChatContext);
-  const { handleInfoComponent } = useContext(UserContext);
+  const { handleInfoComponent, currentUser } = useContext(UserContext);
+
+  console.log(chatDetails?.user?.img);
 
   return (
     <div className="nav">
       <div className="navImg">
-        <img src={navImg} alt="userImg" />
+        <img
+          src={
+            chatDetails.chatId !== null
+              ? chatDetails.user.img
+              : currentUser?.userImg
+          }
+          alt="userImg"
+        />
 
         <div className="userDetailsNav">
-          <h3>{chatDetails?.user?.username || "Select user"}</h3>
+          <h3>{chatDetails?.user?.username || currentUser.username}</h3>
           {chatDetails.user !== null ? <p>Active</p> : null}
         </div>
       </div>
       <div className="navActions">
-        <button>
-          <Phone size={25} />
-        </button>
-        <button>
-          <VideoCamera size={25} />
-        </button>
+        {chatDetails.user && (
+          <>
+            <button>
+              <Phone size={25} />
+            </button>
+            <button>
+              <VideoCamera size={25} />
+            </button>
+          </>
+        )}
+
         <button onClick={() => handleInfoComponent(true)}>
           <DotsThree size={28} weight="bold" />
         </button>

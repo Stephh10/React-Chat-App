@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import userImg from "../../assets/profileImg.jpg";
 import "./Chat.css";
 import { useContext } from "react";
@@ -13,10 +13,14 @@ export default function Message({ messageDetails }) {
 
   const { formatedDate } = formatDateFunc(seconds, nanoseconds);
 
+  //   useEffect(() => {
+
+  //   }, [])
+
   return (
     <div className={currentUserMessage ? "message owner" : "message"}>
       <div className="messageUser">
-        <img src={userImg} alt="chatImg" />
+        <img src={currentUser?.userImg} alt="chatImg" />
         <p>{formatedDate}</p>
       </div>
       <div className="messageDetails">

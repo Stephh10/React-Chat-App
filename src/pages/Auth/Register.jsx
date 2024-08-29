@@ -7,8 +7,9 @@ createUserWithEmailAndPassword;
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { UserContext } from "../../store/UserContext";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 
 export default function Register() {
   const { addUser, currentUser } = useContext(UserContext);
@@ -18,7 +19,9 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const { username, email, password } = Object.fromEntries(formData);
+    const { username, email, password, file } = Object.fromEntries(formData);
+
+    console.log(file);
 
     const createUser = await createUserWithEmailAndPassword(
       auth,
@@ -26,25 +29,39 @@ export default function Register() {
       password
     );
 
-    await setDoc(doc(db, "users", createUser.user.uid), {
-      username,
-      email,
-      password,
-      id: createUser.user.uid,
-    });
+    const storageRef = ref(storage, username);
 
-    await setDoc(doc(db, "userschat", createUser.user.uid), {});
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-    addUser(createUser.user.uid);
-    setLoading(false);
-    toast.success("Account created welcome to chatApp");
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        toast.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await setDoc(doc(db, "users", createUser.user.uid), {
+            username,
+            email,
+            password,
+            id: createUser.user.uid,
+            userImg: downloadURL,
+          });
+
+          await setDoc(doc(db, "userschat", createUser.user.uid), {});
+
+          addUser(createUser.user.uid);
+          setLoading(false);
+          toast.success("Account created welcome to chatApp");
+        });
+      }
+    );
   }
 
   if (!loading && currentUser) {
     return <Navigate to={"/"} />;
   }
-
-  console.log(currentUser);
 
   return (
     <div className="authContainer">
@@ -64,7 +81,7 @@ export default function Register() {
         </div>
         <div className="fileControl">
           <label htmlFor="Select Image"></label>
-          <input type="file" name="image" />
+          <input type="file" name="file" />
         </div>
         <div className="authActions">
           <button>{loading ? "Loading" : "Continue"}</button>

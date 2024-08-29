@@ -13,7 +13,7 @@ export default function NavInfo() {
       <button onClick={() => handleInfoComponent(false)} className="infoClose">
         <XCircle size={30} />
       </button>
-      <img src={infoImg} alt="infoImg" />
+      <img src={chatDetails?.user?.img || currentUser?.userImg} alt="infoImg" />
       <div className="navDetails">
         <h3>{chatDetails?.user?.username || currentUser?.username}</h3>
         <p>UX/UI Designer</p>

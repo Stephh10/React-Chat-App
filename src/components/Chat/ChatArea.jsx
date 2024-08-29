@@ -19,6 +19,14 @@ export default function ChatArea() {
     chatDetails.chatId && getChatData();
   }, [chatDetails.chatId]);
 
+  if (chatDetails.chatId == null) {
+    return (
+      <div className="noChat">
+        <p>Please select user</p>
+      </div>
+    );
+  }
+
   return (
     <div className="chatArea">
       {allMessages?.map((message) => (

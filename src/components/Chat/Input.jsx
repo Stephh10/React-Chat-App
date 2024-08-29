@@ -53,6 +53,10 @@ export default function Input() {
     inputRef.current.focus();
   }
 
+  if (chatDetails.chatId == null) {
+    return null;
+  }
+
   return (
     <div className="input">
       <input

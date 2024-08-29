@@ -69,7 +69,7 @@ export default function Sidebar() {
       [combinedId + ".userInfo"]: {
         username: selectedUser.username,
         id: selectedUser.id,
-        img: "Comming soon",
+        img: selectedUser.userImg,
         date: serverTimestamp(),
       },
     });
@@ -77,7 +77,7 @@ export default function Sidebar() {
       [combinedId + ".userInfo"]: {
         username: currentUser.username,
         id: currentUser.id,
-        img: "Comming soon",
+        img: currentUser.userImg,
         date: serverTimestamp(),
       },
     });
