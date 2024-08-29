@@ -13,8 +13,6 @@ export default function Message({ messageDetails }) {
 
   const { formatedDate } = formatDateFunc(seconds, nanoseconds);
 
-  console.log(messageDetails.date);
-
   return (
     <div className={currentUserMessage ? "message owner" : "message"}>
       <div className="messageUser">

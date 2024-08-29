@@ -4,7 +4,12 @@ import "./Sidebar.css";
 import { ChatContext } from "../../store/ChatContext";
 import { UserContext } from "../../store/UserContext";
 
-export default function SidebarUser({ foundUser, user, handleAddUser }) {
+export default function SidebarUser({
+  foundUser,
+  user,
+  handleAddUser,
+  messageDetails,
+}) {
   const { selectChat } = useContext(ChatContext);
   const { currentUser } = useContext(UserContext);
   const handleClick = () => {
@@ -15,6 +20,15 @@ export default function SidebarUser({ foundUser, user, handleAddUser }) {
     selectChat(currentUser, user);
   };
 
+  const myMessageSidebar = messageDetails?.id == currentUser.id;
+
+  const msgArea = (
+    <div className="showDetailsSidebar">
+      {myMessageSidebar && <span>You:</span>}
+      <p>{messageDetails?.message}</p>
+    </div>
+  );
+
   return (
     <div
       onClick={handleClick}
@@ -23,7 +37,7 @@ export default function SidebarUser({ foundUser, user, handleAddUser }) {
       <img src={img1} alt="sdd" />
       <div className="sidebarUserInfo">
         <h4>{user.username}</h4>
-        {!foundUser && <p>Message here</p>}
+        {!foundUser && msgArea}
       </div>
     </div>
   );

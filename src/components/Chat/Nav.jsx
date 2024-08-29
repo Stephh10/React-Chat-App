@@ -6,10 +6,8 @@ import { UserContext } from "../../store/UserContext";
 import { ChatContext } from "../../store/ChatContext";
 
 export default function Nav() {
-  const { currentUser } = useContext(UserContext);
   const { chatDetails } = useContext(ChatContext);
-
-  console.log(chatDetails.user);
+  const { handleInfoComponent } = useContext(UserContext);
 
   return (
     <div className="nav">
@@ -28,7 +26,7 @@ export default function Nav() {
         <button>
           <VideoCamera size={25} />
         </button>
-        <button>
+        <button onClick={() => handleInfoComponent(true)}>
           <DotsThree size={28} weight="bold" />
         </button>
       </div>

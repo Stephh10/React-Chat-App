@@ -19,11 +19,9 @@ export default function ChatArea() {
     chatDetails.chatId && getChatData();
   }, [chatDetails.chatId]);
 
-  console.log(allMessages);
-
   return (
     <div className="chatArea">
-      {allMessages.map((message) => (
+      {allMessages?.map((message) => (
         <Message key={message.id} messageDetails={message} />
       ))}
     </div>

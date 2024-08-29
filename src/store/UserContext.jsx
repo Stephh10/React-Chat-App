@@ -7,11 +7,14 @@ import { getDoc, doc } from "firebase/firestore";
 export const UserContext = createContext({
   currentUser: null,
   isLoading: true,
+  showInfo: true,
+  handleInfoComponent: () => {},
   addUser: () => {},
 });
 
 export default function UserContextProvider({ children }) {
   const [state, setState] = useState({ currentUser: null, isLoading: true });
+  const [info, setInfo] = useState(true);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -28,10 +31,16 @@ export default function UserContextProvider({ children }) {
     setState({ currentUser: user.data(), isLoading: false });
   }
 
+  function handleInfoComponent(value) {
+    setInfo(value);
+  }
+
   const userContext = {
     currentUser: state.currentUser,
     isLoading: state.isLoading,
     addUser,
+    showInfo: info,
+    handleInfoComponent,
   };
 
   return (

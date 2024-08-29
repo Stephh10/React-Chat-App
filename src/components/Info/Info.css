@@ -1,3 +1,14 @@
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .info {
   flex: 1;
   background-color: #ece9e9;
@@ -5,6 +16,7 @@
   padding: 10px 5px;
   color: black;
   position: relative;
+  animation: slideInFromRight 0.3s ease-out forwards;
 }
 
 .infoClose {

@@ -83,6 +83,8 @@ export default function Sidebar() {
     });
   }
 
+  console.log(Object.entries(userChats));
+
   return (
     <div className="sidebar">
       <SidebarNav />
@@ -100,7 +102,11 @@ export default function Sidebar() {
       )}
       <div className="sidebarActions">
         {Object.entries(userChats).map((user) => (
-          <SidebarUser key={user[0]} user={user[1].userInfo} />
+          <SidebarUser
+            key={user[0]}
+            user={user[1].userInfo}
+            messageDetails={user[1].lastMessage}
+          />
         ))}
       </div>
       <button onClick={handleLogout} className="logoutBtn">

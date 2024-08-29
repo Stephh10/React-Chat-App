@@ -4,6 +4,7 @@
   height: 500px;
   background-color: #433259;
   padding: 5px;
+  overflow: hidden;
 }
 
 .sidebarNav {
@@ -53,6 +54,8 @@
   gap: 0.5rem;
   height: 50px;
   padding: 0 5px;
+  border: 1px solid white;
+  overflow: hidden;
 }
 
 .sidebarUser.foundUser {
@@ -73,11 +76,36 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  flex-shrink: 0;
   object-fit: cover;
   border: 1px solid white;
 }
 
-.sidebarUser p {
+.sidebarUserInfo {
+  width: 100%;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+.showDetailsSidebar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+.showDetailsSidebar p {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.showDetailsSidebar span {
   font-size: 14px;
 }
 
