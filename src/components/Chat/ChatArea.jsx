@@ -12,7 +12,7 @@ export default function ChatArea() {
   useEffect(() => {
     function getChatData() {
       const unsub = onSnapshot(doc(db, "chats", chatDetails.chatId), (doc) => {
-        setAllMessages(doc.data().messages);
+        setAllMessages(doc.data()?.messages);
       });
       return () => unsub();
     }

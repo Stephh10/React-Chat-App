@@ -15,12 +15,11 @@ export default function SidebarUser({
   const handleClick = () => {
     if (foundUser) {
       handleAddUser(user);
+      selectChat(currentUser, user);
     }
 
     selectChat(currentUser, user);
   };
-
-  console.log(user);
 
   const myMessageSidebar = messageDetails?.id == currentUser.id;
 
@@ -36,7 +35,7 @@ export default function SidebarUser({
       onClick={handleClick}
       className={foundUser ? "sidebarUser foundUser" : "sidebarUser"}
     >
-      <img src={foundUser ? user.userImg : user.img} alt="sdd" />
+      <img src={foundUser ? user.userImg : user.userImg} alt="sdd" />
       <div className="sidebarUserInfo">
         <h4>{user.username}</h4>
         {!foundUser && msgArea}

@@ -9,7 +9,7 @@ export default function Nav() {
   const { chatDetails } = useContext(ChatContext);
   const { handleInfoComponent, currentUser } = useContext(UserContext);
 
-  console.log(chatDetails?.user?.img);
+  console.log(chatDetails?.user);
 
   return (
     <div className="nav">
@@ -17,7 +17,7 @@ export default function Nav() {
         <img
           src={
             chatDetails.chatId !== null
-              ? chatDetails.user.img
+              ? chatDetails.user.userImg
               : currentUser?.userImg
           }
           alt="userImg"

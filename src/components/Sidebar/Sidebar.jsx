@@ -69,7 +69,12 @@ export default function Sidebar() {
       [combinedId + ".userInfo"]: {
         username: selectedUser.username,
         id: selectedUser.id,
-        img: selectedUser.userImg,
+        userImg: selectedUser.userImg,
+        email: selectedUser.email,
+        profession: selectedUser.profession,
+        dateofbirth: selectedUser.dateofbirth,
+        number: selectedUser.number,
+        gender: selectedUser.gender,
         date: serverTimestamp(),
       },
     });
@@ -82,8 +87,6 @@ export default function Sidebar() {
       },
     });
   }
-
-  console.log(Object.entries(userChats));
 
   return (
     <div className="sidebar">

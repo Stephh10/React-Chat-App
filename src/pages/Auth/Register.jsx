@@ -19,9 +19,19 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const { username, email, password, file } = Object.fromEntries(formData);
+    const {
+      username,
+      email,
+      password,
+      file,
+      gender,
+      dateofbirth,
+      profession,
+      number,
+    } = Object.fromEntries(formData);
 
-    console.log(file);
+    const [year, month, day] = dateofbirth.split("-");
+    const formatedDate = `${day}-${month}-${year}`;
 
     const createUser = await createUserWithEmailAndPassword(
       auth,
@@ -45,6 +55,10 @@ export default function Register() {
             username,
             email,
             password,
+            profession,
+            number,
+            gender,
+            dateofbirth: formatedDate,
             id: createUser.user.uid,
             userImg: downloadURL,
           });
@@ -72,16 +86,34 @@ export default function Register() {
           <input type="text" name="username" id="username" />
         </div>
         <div className="control">
-          <label htmlFor="Username">Profession</label>
-          <input type="text" name="profession" id="profession" />
-        </div>
-        <div className="control">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" />
         </div>
+        <div className="controlRow">
+          <div className="control row">
+            <label htmlFor="Username">Profession</label>
+            <input type="text" name="profession" id="profession" />
+          </div>
+          <div className="control">
+            <label htmlFor="Username">Date of Birth</label>
+            <input type="date" name="dateofbirth" id="dateofbirth" />
+          </div>
+        </div>
+
+        <div className="control">
+          <label htmlFor="Username">Number</label>
+          <input type="number" name="number" id="number" />
+        </div>
+
         <div className="control">
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password" />
+        </div>
+        <div>
+          <select name="gender" className="selectControl">
+            <option value="male">male</option>
+            <option value="female">female</option>
+          </select>
         </div>
         <div className="fileControl">
           <label htmlFor="Select Image"></label>
