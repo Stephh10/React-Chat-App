@@ -3,20 +3,16 @@ import "./Chat.css";
 import { Paperclip, Smiley, PaperPlaneRight } from "phosphor-react";
 import { ChatContext } from "../../store/ChatContext";
 import { UserContext } from "../../store/UserContext";
-import {
-  doc,
-  Timestamp,
-  updateDoc,
-  arrayUnion,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, Timestamp, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
+import EmojiPicker from "emoji-picker-react";
 
 export default function Input() {
   const { currentUser } = useContext(UserContext);
   const { chatDetails } = useContext(ChatContext);
   const [newMessage, setNewMessage] = useState("");
+  const [openEmoji, setOpenEmoji] = useState(false);
   const inputRef = useRef(null);
 
   function inputValue(e) {
@@ -53,6 +49,12 @@ export default function Input() {
     inputRef.current.focus();
   }
 
+  function handleEmojiSelect(e) {
+    setNewMessage((prev) => prev + e.emoji);
+  }
+
+  console.log(newMessage);
+
   if (chatDetails.chatId == null) {
     return null;
   }
@@ -71,11 +73,21 @@ export default function Input() {
           <Paperclip size={25} />
         </button>
         <button>
-          <Smiley size={25} />
+          <Smiley onClick={() => setOpenEmoji((prev) => !prev)} size={25} />
         </button>
         <button onClick={sendNewMessage}>
           <PaperPlaneRight size={28} color="#433259" weight="fill" />
         </button>
+      </div>
+      <div className="emojiContainer">
+        <EmojiPicker
+          onEmojiClick={(e) => handleEmojiSelect(e)}
+          width={250}
+          height={340}
+          open={openEmoji}
+          searchDisabled={true}
+          className="emojiContainer"
+        />
       </div>
     </div>
   );

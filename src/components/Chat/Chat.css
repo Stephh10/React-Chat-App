@@ -46,6 +46,7 @@
 }
 
 .input {
+  position: relative;
   display: flex;
   height: 50px;
   border-top: 1px solid grey;
@@ -130,4 +131,10 @@
   font-weight: bold;
   font-size: 25px;
   margin: 170px auto 0 auto;
+}
+
+.emojiContainer {
+  position: absolute;
+  bottom: 25px;
+  right: 0px;
 }
