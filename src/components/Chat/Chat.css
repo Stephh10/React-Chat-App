@@ -78,6 +78,10 @@
   flex: 1;
   color: black;
   padding: 5px;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  box-sizing: content-box;
 }
 
 .message {
@@ -137,4 +141,26 @@
   position: absolute;
   bottom: 25px;
   right: 0px;
+}
+
+.messageDetails.owner {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: max-content;
+}
+
+.imgArea img {
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+}
+
+.inputActions input[type="file"] {
+  display: none;
+}
+
+.inputActions label {
+  cursor: pointer;
+  color: black;
 }

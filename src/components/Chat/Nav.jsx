@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import "./Chat.css";
-import navImg from "../../assets/profileImg.jpg";
 import { Phone, VideoCamera, DotsThree } from "phosphor-react";
 import { UserContext } from "../../store/UserContext";
 import { ChatContext } from "../../store/ChatContext";
+import { toast } from "react-toastify";
 
 export default function Nav() {
   const { chatDetails } = useContext(ChatContext);
   const { handleInfoComponent, currentUser } = useContext(UserContext);
 
-  console.log(chatDetails?.user);
+  function handleComingSoon() {
+    toast.info("Comming soon");
+  }
 
   return (
     <div className="nav">
@@ -31,10 +33,10 @@ export default function Nav() {
       <div className="navActions">
         {chatDetails.user && (
           <>
-            <button>
+            <button onClick={handleComingSoon}>
               <Phone size={25} />
             </button>
-            <button>
+            <button onClick={handleComingSoon}>
               <VideoCamera size={25} />
             </button>
           </>

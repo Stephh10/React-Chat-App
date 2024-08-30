@@ -27,6 +27,14 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="*"
+          element={
+            <Protect>
+              <Main errorMessage />
+            </Protect>
+          }
+        />
       </Routes>
       <Notification />
     </>

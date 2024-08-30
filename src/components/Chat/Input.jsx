@@ -7,11 +7,14 @@ import { doc, Timestamp, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import EmojiPicker from "emoji-picker-react";
+import { storage } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function Input() {
   const { currentUser } = useContext(UserContext);
   const { chatDetails } = useContext(ChatContext);
   const [newMessage, setNewMessage] = useState("");
+  const [messageFile, setMessageFile] = useState(null);
   const [openEmoji, setOpenEmoji] = useState(false);
   const inputRef = useRef(null);
 
@@ -20,14 +23,39 @@ export default function Input() {
   }
 
   async function sendNewMessage() {
-    await updateDoc(doc(db, "chats", chatDetails.chatId), {
-      messages: arrayUnion({
-        senderId: currentUser.id,
-        text: newMessage,
-        id: uuidv4(),
-        date: Timestamp.now(),
-      }),
-    });
+    if (messageFile) {
+      const storageRef = ref(storage, uuidv4());
+      const uploadTask = uploadBytesResumable(storageRef, messageFile);
+
+      uploadTask.on(
+        "state_changed",
+        (error) => {
+          toast.error(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateDoc(doc(db, "chats", chatDetails.chatId), {
+              messages: arrayUnion({
+                senderId: currentUser.id,
+                imgData: downloadURL,
+                id: uuidv4(),
+                date: Timestamp.now(),
+              }),
+            });
+          });
+        }
+      );
+      setMessageFile(null);
+    } else {
+      await updateDoc(doc(db, "chats", chatDetails.chatId), {
+        messages: arrayUnion({
+          senderId: currentUser.id,
+          text: newMessage,
+          id: uuidv4(),
+          date: Timestamp.now(),
+        }),
+      });
+    }
 
     await updateDoc(doc(db, "userschat", currentUser.id), {
       [chatDetails.chatId + ".lastMessage"]: {
@@ -53,8 +81,6 @@ export default function Input() {
     setNewMessage((prev) => prev + e.emoji);
   }
 
-  console.log(newMessage);
-
   if (chatDetails.chatId == null) {
     return null;
   }
@@ -69,9 +95,16 @@ export default function Input() {
         placeholder="Enter your message here"
       />
       <div className="inputActions">
-        <button>
+        <label htmlFor="imgSelect">
           <Paperclip size={25} />
-        </button>
+        </label>
+
+        <input
+          onChange={(e) => setMessageFile(e.target.files[0])}
+          type="file"
+          name="imgSelect"
+          id="imgSelect"
+        />
         <button>
           <Smiley onClick={() => setOpenEmoji((prev) => !prev)} size={25} />
         </button>

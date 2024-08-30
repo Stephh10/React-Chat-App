@@ -22,7 +22,6 @@ export default function ChatContextProvider({ children }) {
     });
   }
 
-  console.log(state);
   const chatContext = {
     chatDetails: state,
     selectChat,

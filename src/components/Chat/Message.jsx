@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import userImg from "../../assets/profileImg.jpg";
+import React, { useEffect, useState, useRef } from "react";
 import "./Chat.css";
 import { useContext } from "react";
 import { UserContext } from "../../store/UserContext";
@@ -10,13 +9,12 @@ import { db } from "../../firebase";
 export default function Message({ messageDetails }) {
   const [user, setUser] = useState(null);
   const { currentUser } = useContext(UserContext);
+  const messageRef = useRef();
   const currentUserMessage = messageDetails.senderId === currentUser.id;
   const seconds = messageDetails.date.seconds;
   const nanoseconds = messageDetails.date.nanoseconds;
 
   const { formatedDate } = formatDateFunc(seconds, nanoseconds);
-
-  console.log(messageDetails.senderId);
 
   useEffect(() => {
     async function getMessageUser() {
@@ -33,15 +31,35 @@ export default function Message({ messageDetails }) {
     messageDetails.senderId && getMessageUser();
   }, [messageDetails.senderId]);
 
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef?.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messageDetails?.date?.seconds]);
+
   return (
-    <div className={currentUserMessage ? "message owner" : "message"}>
+    <div
+      ref={messageRef}
+      className={currentUserMessage ? "message owner" : "message"}
+    >
       <div className="messageUser">
         <img src={user?.userImg} alt="chatImg" />
         <p>{formatedDate}</p>
       </div>
-      <div className="messageDetails">
-        <div className="imgArea"></div>
-        <p className="messageContent">{messageDetails.text}</p>
+      <div
+        className={
+          currentUserMessage ? "messageDetails owner" : "messageDetails"
+        }
+      >
+        <div className="imgArea">
+          {messageDetails.imgData && (
+            <img src={messageDetails.imgData} alt="chatImg" />
+          )}
+          {/* <img src={userImg} alt="sendingImg" /> */}
+        </div>
+        {messageDetails.text && (
+          <p className="messageContent">{messageDetails.text}</p>
+        )}
       </div>
     </div>
   );
