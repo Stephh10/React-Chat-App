@@ -72,6 +72,10 @@ export default function Register() {
           <input type="text" name="username" id="username" />
         </div>
         <div className="control">
+          <label htmlFor="Username">Profession</label>
+          <input type="text" name="profession" id="profession" />
+        </div>
+        <div className="control">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" />
         </div>

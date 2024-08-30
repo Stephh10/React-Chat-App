@@ -8,6 +8,12 @@ import { UserContext } from "../../store/UserContext";
 export default function Search({ setUser, inputValue, setInputValue }) {
   const { currentUser } = useContext(UserContext);
 
+  function handleKeySearch(e) {
+    if (e.key === "Enter") {
+      handleUserSearch();
+    }
+  }
+
   async function handleUserSearch() {
     const q = query(
       collection(db, "users"),
@@ -32,9 +38,10 @@ export default function Search({ setUser, inputValue, setInputValue }) {
   return (
     <div className="search">
       <input
+        onKeyDown={handleKeySearch}
         onChange={(e) => setInputValue(e.target.value)}
         type="text"
-        placeholder="Search conversations"
+        placeholder="Search conversations..."
         value={inputValue}
       />
       <button onClick={handleUserSearch}>
